@@ -1,31 +1,33 @@
 """
 Mask R-CNN
 Display and Visualization Functions.
-
 Copyright (c) 2017 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
 """
 
+import IPython.display
+from matplotlib.patches import Polygon
+from matplotlib import patches,  lines
+from mrcnn import utils
 import os
 import sys
 import random
 import itertools
 import colorsys
-
+import base64
 import numpy as np
 from skimage.measure import find_contours
+import matplotlib
+matplotlib.use('TkAgg')
+
 import matplotlib.pyplot as plt
-from matplotlib import patches,  lines
-from matplotlib.patches import Polygon
-import IPython.display
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
-from mrcnn import utils
 
 
 ############################################################
@@ -50,10 +52,9 @@ def display_images(images, titles=None, cols=4, cmap=None, norm=None,
         plt.subplot(rows, cols, i)
         plt.title(title, fontsize=9)
         plt.axis('off')
-        plt.imshow(image.astype(np.uint8), cmap=cmap,
-                   norm=norm, interpolation=interpolation)
+        #plt.imshow(image.astype(np.uint8), cmap=cmap,norm=norm, interpolation=interpolation)
         i += 1
-    plt.show()
+    #plt.show()
 
 
 def random_colors(N, bright=True):
@@ -131,8 +132,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         y1, x1, y2, x2 = boxes[i]
         if show_bbox:
             p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
-                                alpha=0.7, linestyle="dashed",
-                                edgecolor=color, facecolor='none')
+                                  alpha=0.7, linestyle="dashed",
+                                  edgecolor=color, facecolor='none')
             ax.add_patch(p)
 
         # Label
@@ -162,9 +163,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
-    ax.imshow(masked_image.astype(np.uint8))
-    if auto_show:
-        plt.show()
+
+    return masked_image.astype(np.uint8)
 
 
 def display_differences(image,
@@ -181,7 +181,7 @@ def display_differences(image,
         iou_threshold=iou_threshold, score_threshold=score_threshold)
     # Ground truth = green. Predictions = red
     colors = [(0, 1, 0, .8)] * len(gt_match)\
-           + [(1, 0, 0, 1)] * len(pred_match)
+        + [(1, 0, 0, 1)] * len(pred_match)
     # Concatenate GT and predictions
     class_ids = np.concatenate([gt_class_id, pred_class_id])
     scores = np.concatenate([np.zeros([len(gt_match)]), pred_score])
@@ -192,7 +192,7 @@ def display_differences(image,
         pred_score[i],
         (overlaps[i, int(pred_match[i])]
             if pred_match[i] > -1 else overlaps[i].max()))
-            for i in range(len(pred_match))]
+        for i in range(len(pred_match))]
     # Set title if not provided
     title = title or "Ground Truth and Detections\n GT=green, pred=red, captions: score/IoU"
     # Display
@@ -257,7 +257,7 @@ def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10)
                                   [:4].astype(np.int32), image.shape)
             masked_image = apply_mask(masked_image, m, color)
 
-    ax.imshow(masked_image)
+    #ax.imshow(masked_image)
 
     # Print stats
     print("Positive ROIs: ", class_ids[class_ids > 0].shape[0])
@@ -304,7 +304,6 @@ def display_top_masks(image, mask, class_ids, class_names, limit=4):
 
 def plot_precision_recall(AP, precisions, recalls):
     """Draw the precision-recall curve.
-
     AP: Average precision at IoU >= 0.5
     precisions: list of precision values
     recalls: list of recall values
@@ -331,7 +330,7 @@ def plot_overlaps(gt_class_ids, pred_class_ids, pred_scores,
     pred_class_ids = pred_class_ids[pred_class_ids != 0]
 
     plt.figure(figsize=(12, 10))
-    plt.imshow(overlaps, interpolation='nearest', cmap=plt.cm.Blues)
+    #plt.imshow(overlaps, interpolation='nearest', cmap=plt.cm.Blues)
     plt.yticks(np.arange(len(pred_class_ids)),
                ["{} ({:.2f})".format(class_names[int(id)], pred_scores[i])
                 for i, id in enumerate(pred_class_ids)])
@@ -361,7 +360,6 @@ def draw_boxes(image, boxes=None, refined_boxes=None,
                title="", ax=None):
     """Draw bounding boxes and segmentation masks with different
     customizations.
-
     boxes: [N, (y1, x1, y2, x2, class_id)] in image coordinates.
     refined_boxes: Like boxes, but draw with solid lines to show
         that they're the result of refining 'boxes'.
@@ -455,7 +453,7 @@ def draw_boxes(image, boxes=None, refined_boxes=None,
                 verts = np.fliplr(verts) - 1
                 p = Polygon(verts, facecolor="none", edgecolor=color)
                 ax.add_patch(p)
-    ax.imshow(masked_image.astype(np.uint8))
+    #ax.imshow(masked_image.astype(np.uint8))
 
 
 def display_table(table):

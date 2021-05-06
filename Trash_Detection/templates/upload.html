@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
+    type="text/css" />
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <meta charset=utf-8 />
+
+  <script src="{{ url_for('static', filename='upload.js') }}"></script>
+
+  <style>
+    article,
+    aside,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    input,
+img,
+    section {
+      display: block;
+    }
+    *{
+      font-family: Century Gothic;
+    }
+    body{
+    background-color: #f0f0f0;
+    }
+    img{
+      height: 100% !important; 
+      width: auto !important;
+      display: block;
+      margin: auto;
+
+    }
+    #input{
+
+      width: 100%;
+      border: 1px solid gray;
+      border-radius: 4px;
+    }
+    #input::-webkit-file-upload-button{
+
+
+border: none;
+padding: 10px;
+padding-left:15px ;
+padding-right:15px ;
+background-color: #1877f2;
+color: white;
+border-radius: 4px;
+cursor: pointer;
+}
+    form{
+      
+      width: 50%;
+      height: 50%;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+      display: flex;
+      margin: auto;
+background-color: white;
+border-radius: 10px;
+padding-top: 70px;
+padding-bottom: 70px;
+margin-top: 10%;
+box-shadow: 1px 3px 35px -2px rgba(0, 0, 0, 0.242); }
+    #img{
+
+      border: 1px dashed gray;
+      width: auto;
+      height: 300px;
+     background-color: #e1e6ea;
+    }
+    #button{
+      border: none;
+padding: 10px;
+padding-left:15px ;
+padding-right:15px ;
+background-color:  #42b72a;
+color: white;
+border-radius: 4px;
+cursor: pointer;
+width: 100%;
+    }
+   #input_content{
+height: 300px;
+    justify-content: space-between;
+    align-items: center;
+      
+      flex-direction: column;
+      display: flex;
+     
+   }
+   h1{
+     color: rgb(63, 63, 63);
+   }
+   .loader {
+  border: 10px solid  #f0f0f0;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#loader_container{
+  position:absolute;
+  justify-content: space-between;
+    align-items: center;
+      
+      flex-direction: column;
+      display: none;
+  
+}
+
+  </style>
+</head>
+
+<body>
+
+  <form action="http://127.0.0.1:8989/uploader" method="POST" enctype="multipart/form-data">
+    
+
+  <div id="input_content">
+  <div id="loader_container">
+    <div class="loader"></div>
+    <h1>Uploading</h1>
+  </div>
+    <div>
+    <h1 class="input">Upload Image</h1>
+  </div>
+  <div>
+    <input class="input" id="input" type='file' name='file' onchange="readURL(this);" />
+   <br>
+    <input class="input" id="button" type="submit" /></div>
+  </div>
+  <div id="img">
+    <img  id="blah" src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />
+  </div>
+  </form>
+
+  
+</body>
+
+</html>

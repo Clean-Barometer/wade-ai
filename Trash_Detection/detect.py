@@ -1,7 +1,8 @@
+
+
+# TODO ADD LOCATION PARAMETER
 def detect_garbage(image):
 
-    # def detect(image):
-    print('in detect')
     from trash import trash
     from mrcnn.model import log
     import mrcnn.model as modellib
@@ -67,7 +68,6 @@ def detect_garbage(image):
 
     # Inspect the model in training or inference modes
     # values: 'inference' or 'training'
-    # TODO: code for 'training' test mode not ready yet
     TEST_MODE = "inference"
 
     def get_ax(rows=1, cols=1, size=16):
@@ -116,5 +116,12 @@ def detect_garbage(image):
                                          dataset.class_names, r['scores'],
                                          title="Predictions")
 
-    # cv2.imshow('test', result)
-    cv2.imwrite("./test.jpg", result)
+    # TODO CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
+
+    # TODO CONVERT IMAGE OT URI
+    """
+        retval, buffer = cv2.imencode(‘.jpg’,  array)
+        jpg_as_text = base64.b64encode(buffer)
+        result = jpg_as_text.decode(‘ASCII’)
+    """
+    # TODO PUSH TO DATABASE INCLUDING GEO LOCATION

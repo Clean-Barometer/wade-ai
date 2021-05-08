@@ -121,31 +121,30 @@ def detect_garbage(image):
                                          title="Predictions")
 
     # CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
-    if True in  r["masks"][:, 0, 0]:
 
         # CONVERT IMAGES OT URI
-        retval, buffer = cv2.imencode('.jpg',  result)
-        jpg_as_text = base64.b64encode(buffer)
-        predicted = jpg_as_text.decode('ASCII')
+    retval, buffer = cv2.imencode('.jpg',  result)
+    jpg_as_text = base64.b64encode(buffer)
+    predicted = jpg_as_text.decode('ASCII')
 
-        retval, buffer = cv2.imencode('.jpg',  image)
-        jpg_as_text = base64.b64encode(buffer)
-        original = jpg_as_text.decode('ASCII')
+    retval, buffer = cv2.imencode('.jpg',  image)
+    jpg_as_text = base64.b64encode(buffer)
+    original = jpg_as_text.decode('ASCII')
 
-        # PUSH TO DATABASE INCLUDING GEO LOCATION
-        client = MongoClient("mongodb+srv://user:1234@cluster0.vfc9s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        db=client.predictions
-        collection = db.predictions
+    # PUSH TO DATABASE INCLUDING GEO LOCATION
+    client = MongoClient("mongodb+srv://user:1234@cluster0.vfc9s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    db=client.predictions
+    collection = db.predictions
 
-        record ={
-                "loc" : { "type": "Point", "coordinates": [ -73.97, 40.77 ] },
-                "predictedImage" : predicted,
-                "originalImage" : original,
-                "time" : datetime.now(),
-            }
+    record ={
+            "loc" : { "type": "Point", "coordinates": [ -73.97, 40.77 ] },
+            "predictedImage" : predicted,
+            "originalImage" : original,
+            "time" : datetime.now(),
+        }
 
-        collection.insert(record)
+    collection.insert(record)
 
-        return 'file was uploaded successfully'
-    else:
-        return "the uploaded file doesn't seem to have trash in it, if you believe this isn't the case please try again or contact us"
+    return 'file was uploaded successfully'
+    # else:
+    #     return "the uploaded file doesn't seem to have trash in it, if you believe this isn't the case please try again or contact us"

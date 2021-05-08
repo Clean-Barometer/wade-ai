@@ -33,10 +33,10 @@ def upload_file():
 
         # TODO SEND THE LOCATION TO DETECT FUNCTION
         # get detection
-        detect.detect_garbage(img)
+        resultMessege = detect.detect_garbage(img)
 
         # TODO RETURN TO INDEX.HTML
-        return 'file uploaded successfully'
+        return resultMessege
 
 
 # if __name__ == '__main__':

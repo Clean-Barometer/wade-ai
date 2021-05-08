@@ -23,6 +23,10 @@ def detect_garbage(image):
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
     import cv2
+    from pymongo import MongoClient
+    import base64
+    from datetime import datetime
+
     # Root directory of the project.
     # Change in case you want to put the notebook somewhere else.
     ROOT_DIR = os.getcwd()
@@ -116,12 +120,32 @@ def detect_garbage(image):
                                          dataset.class_names, r['scores'],
                                          title="Predictions")
 
-    # TODO CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
+    # CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
+    if True in  r["masks"][:, 0, 0]:
 
-    # TODO CONVERT IMAGE OT URI
-    """
-        retval, buffer = cv2.imencode(‘.jpg’,  array)
+        # CONVERT IMAGES OT URI
+        retval, buffer = cv2.imencode('.jpg',  result)
         jpg_as_text = base64.b64encode(buffer)
-        result = jpg_as_text.decode(‘ASCII’)
-    """
-    # TODO PUSH TO DATABASE INCLUDING GEO LOCATION
+        predicted = jpg_as_text.decode('ASCII')
+
+        retval, buffer = cv2.imencode('.jpg',  image)
+        jpg_as_text = base64.b64encode(buffer)
+        original = jpg_as_text.decode('ASCII')
+
+        # PUSH TO DATABASE INCLUDING GEO LOCATION
+        client = MongoClient("mongodb+srv://user:1234@cluster0.vfc9s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+        db=client.predictions
+        collection = db.predictions
+
+        record ={
+                "loc" : { "type": "Point", "coordinates": [ -73.97, 40.77 ] },
+                "predictedImage" : predicted,
+                "originalImage" : original,
+                "time" : datetime.now(),
+            }
+
+        collection.insert(record)
+
+        return 'file was uploaded successfully'
+    else:
+        return "the uploaded file doesn't seem to have trash in it, if you believe this isn't the case please try again or contact us"

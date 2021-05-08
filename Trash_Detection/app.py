@@ -36,7 +36,8 @@ def upload_file():
         detect.detect_garbage(img)
 
         # TODO RETURN TO INDEX.HTML
-        return 'file uploaded successfully'
+        # return 'file uploaded successfully'
+        return render_template('redirect.html')
 
 
 # if __name__ == '__main__':

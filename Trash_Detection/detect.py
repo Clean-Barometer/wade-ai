@@ -116,6 +116,8 @@ def detect_garbage(image):
                                          dataset.class_names, r['scores'],
                                          title="Predictions")
 
+
+    cv2.imwrite("tesot.jpg", result)
     # TODO CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
 
     # TODO CONVERT IMAGE OT URI

@@ -120,6 +120,9 @@ def detect_garbage(image):
                                          dataset.class_names, r['scores'],
                                          title="Predictions")
 
+
+    # TODO CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
+
     # CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
 
         # CONVERT IMAGES OT URI

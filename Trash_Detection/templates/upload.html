@@ -131,13 +131,33 @@ height: 300px;
   
 }
 
+#uploading{
+  background-color: rgb(75, 75, 75);
+  position: absolute;
+  height: 400px;
+  width: 100%;
+  opacity: 70%;
+  margin: 0;
+  display: none;
+}
   </style>
+
+  <script>
+    function showLoading(){
+      upload_div = document.getElementById("uploading")
+      upload_div.style.display = "block"
+    }
+  </script>
+
 </head>
 
 <body>
 
   <form action="http://127.0.0.1:8989/uploader" method="POST" enctype="multipart/form-data">
     
+  <div id="uploading">
+    <img  id="upload" src="{{ url_for('static', filename='upload.gif') }}" alt="uploading..." />
+  </div>
 
   <div id="input_content">
   <div id="loader_container">
@@ -150,7 +170,7 @@ height: 300px;
   <div>
     <input class="input" id="input" type='file' name='file' onchange="readURL(this);" />
    <br>
-    <input class="input" id="button" type="submit" /></div>
+    <input class="input" id="button" type="submit" onclick="showLoading()"/></div>
   </div>
   <div id="img">
     <img  id="blah" src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />

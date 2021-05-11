@@ -34,17 +34,17 @@
         }).addTo(map);
 
         var uriBeginning = "data:image/jpeg;base64,"
-        var notParsedData = '{{ data }}';
+        // var notParsedData = '{{ data }}';
         // var newJson = notParsedData.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
         // newJson = newJson.replace(/'/g, '"');
-        var newJson = notParsedData.replace(/&#39;/g, '');
-        newJson = newJson.replace(/_/g, '');
+        // var newJson = notParsedData.replace(/&#39;/g, '');
+        // newJson = newJson.replace(/_/g, '');
 
-        debugger
-        var data = JSON.parse(newJson);
-
+        
+        var data = JSON.parse('{{ data | tojson | safe}}');
+        console.log(data);
         data.forEach(function(myDoc) {
-            debugger
+            
             var element = document.createElement("IMG");
             element.classList.add("miniImage");
             element.addEventListener('click', function() {
@@ -52,6 +52,8 @@
                 document.getElementById("modal01").style.display = "block";
             }, false);
             element.src = uriBeginning + myDoc.predictedImage;
+            myDoc.loc.coordinates.reverse();
+
             var marker = L.marker(myDoc.loc.coordinates)
                 .bindPopup(element)
                 .addTo(map);

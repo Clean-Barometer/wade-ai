@@ -4,9 +4,12 @@ from werkzeug.utils import secure_filename
 import base64
 import os
 import detect
+import load_model
 import cv2
 from flask_pymongo import PyMongo
 import json
+
+
 app = Flask(__name__, static_folder='static')
 
 mongodb_client = PyMongo(
@@ -18,8 +21,6 @@ collection = db.predictions
 @app.route('/')
 def upload_f():
     return render_template('upload.html')
-
-# TODO ADD ROUTE FOR MAP
 
 
 @app.route('/map')
@@ -51,8 +52,10 @@ def upload_file():
         # TODO RETURN TO INDEX.HTML
 
         # return 'file uploaded successfully'
-        return render_template('redirect.html')
+        return render_template('redirect.html', resultMessege=resultMessege)
 
 
-# if __name__ == '__main__':
-app.run(debug=True, port=8909)
+if __name__ == '__main__':
+    # model, classes = load_model.load_model()
+
+    app.run(debug=False, port=8909)

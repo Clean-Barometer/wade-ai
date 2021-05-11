@@ -1,7 +1,6 @@
 
 
-# TODO ADD LOCATION PARAMETER
-def detect_garbage(image):
+def load_model():
 
     from trash import trash
     from mrcnn.model import log
@@ -88,57 +87,10 @@ def detect_garbage(image):
     with tf.device(DEVICE):
         model = modellib.MaskRCNN(
             mode="inference", model_dir=MODEL_DIR, config=config)
-
+    model._make_predict_function()
     # Load the weights you trained
     weights_path = os.path.join(ROOT_DIR, TRASH_WEIGHTS_PATH)
     model.load_weights(weights_path, by_name=True)
     print("Loading weights ", TRASH_WEIGHTS_PATH)
 
-    # image = skimage.io.imread('{}'.format("images/trash_55.jpg"))
-    # print(type(image))
-    # Run object detection
-    results = model.detect([image], verbose=1)
-
-    # Display results
-
-    r = results[0]
-
-    # check if the image has garbage:
-    if not len(r['scores']):
-        return 'Sorry! there are no garbages in the image'
-
-    result = visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'],
-                                         dataset.class_names, r['scores'],
-                                         title="Predictions")
-
-    # TODO CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
-
-    # CEHCK IF THE IMAGE HAS GARBAGE IF YES DO:
-
-    # CONVERT IMAGES OT URI
-    retval, buffer = cv2.imencode('.jpg',  result)
-    jpg_as_text = base64.b64encode(buffer)
-    predicted = jpg_as_text.decode('ASCII')
-
-    retval, buffer = cv2.imencode('.jpg',  image)
-    jpg_as_text = base64.b64encode(buffer)
-    original = jpg_as_text.decode('ASCII')
-
-    # PUSH TO DATABASE INCLUDING GEO LOCATION
-    client = MongoClient(
-        "mongodb+srv://user:1234@cluster0.vfc9s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-    db = client.predictions
-    collection = db.predictions
-
-    record = {
-        "loc": {"type": "Point", "coordinates": [-73.97, 40.77]},
-        "predictedImage": predicted,
-        "originalImage": original,
-        "time": datetime.now(),
-    }
-
-    collection.insert(record)
-
-    return 'Thank you for reporting!'
-    # else:
-    #     return "the uploaded file doesn't seem to have trash in it, if you believe this isn't the case please try again or contact us"
+    return model, dataset.class_names

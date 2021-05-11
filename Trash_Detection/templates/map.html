@@ -29,10 +29,9 @@
 
     <script>
         var map = L.map("map").setView([32, 35], 5);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map);
-
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
         var uriBeginning = "data:image/jpeg;base64,"
         // var notParsedData = '{{ data }}';
         // var newJson = notParsedData.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
@@ -42,7 +41,6 @@
 
         
         var data = JSON.parse('{{ data | tojson | safe}}');
-        console.log(data);
         data.forEach(function(myDoc) {
             
             var element = document.createElement("IMG");

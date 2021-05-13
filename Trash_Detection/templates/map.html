@@ -10,54 +10,73 @@
 </head>
 
 <body class="parent">
-   
-    <div id="header"></div>
+
     <div id="map" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0">
     </div>
 
-    <div id="modal01" class="modal" onclick="this.style.display='none'">
-        <span class="close">&times;</span>
+    <div id="overlay" onclick='collapseImage()'>
+        <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <div class="modal-content">
-            <img id="img01" style="max-width:100%">
+            <div id="images">
+                <img id="img01">
+                <img id="img02">
+            </div>
+
+            <div id="imageText"></div>
         </div>
     </div>
-
-
 
     <script>
         var map = L.map("map").setView([32, 35], 5);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-        var uriBeginning = "data:image/jpeg;base64,"
-        // var notParsedData = '{{ data }}';
-        // var newJson = notParsedData.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
-        // newJson = newJson.replace(/'/g, '"');
-        // var newJson = notParsedData.replace(/&#39;/g, '');
-        // newJson = newJson.replace(/_/g, '');
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-        
+        /*Legend specific*/
+        var legend = L.control({
+            position: "bottomleft"
+        });
+
+        legend.onAdd = function(map) {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML += '<h1 style="margin-bottom: 0px;">Garbage Detection</h1>';
+            div.innerHTML += '<h4>By CAP18</h4>';
+            return div;
+        };
+        legend.addTo(map);
+
+
+        var uriBeginning = "data:image/jpeg;base64,"
+
         var data = JSON.parse('{{ data | tojson | safe}}');
         data.forEach(function(myDoc) {
-            
             var element = document.createElement("IMG");
             element.classList.add("miniImage");
             element.addEventListener('click', function() {
                 document.getElementById("img01").src = element.src;
-                document.getElementById("modal01").style.display = "block";
+                document.getElementById("img02").src = uriBeginning + myDoc.predictedImage;
+
+                document.getElementById("imageText").innerHTML = "Timestamp: " + myDoc.time + "<br>Cordinates: " + myDoc.loc.coordinates[0] + ", " + myDoc.loc.coordinates[1];
+                document.getElementById("overlay").style.display = "block";
+                document.getElementById("map").setAttribute("style", "-webkit-filter:blur(8px)")
             }, false);
-            element.src = uriBeginning + myDoc.predictedImage;
+            element.src = uriBeginning + myDoc.originalImage;
+            myDoc.loc.coordinates.reverse();
 
             var marker = L.marker(myDoc.loc.coordinates)
                 .bindPopup(element)
                 .addTo(map);
         })
 
-        // img.onclick = 
         function expandImage() {
             modal.style.display = "block";
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
+        }
+
+        function collapseImage() {
+            document.getElementById("overlay").style.display = 'none',
+                document.getElementById("map").setAttribute("style", "-webkit-filter:blur(0px)")
         }
     </script>
     <!-- <script src="{{ url_for('static', filename='map.js') }}"></script> -->

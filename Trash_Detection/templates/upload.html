@@ -7,6 +7,8 @@
     type="text/css" />
   <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+
   <meta charset=utf-8 />
 
   <script src="{{ url_for('static', filename='upload.js') }}"></script>
@@ -143,6 +145,44 @@ height: 300px;
   </style>
 
   <script>
+    function getLocation() {
+
+      EXIF.getData(document.getElementById("blah"), function () {
+          
+        myData = document.getElementById("blah");
+        lat =
+      Number(myData.exifdata["GPSLatitude"][0]) +
+      Number(myData.exifdata["GPSLatitude"][1]) / 60 +
+      Number(myData.exifdata["GPSLatitude"][2]) / 3600;
+
+    long =
+      Number(myData.exifdata["GPSLongitude"][0]) +
+      Number(myData.exifdata["GPSLongitude"][1]) / 60 +
+      Number(myData.exifdata["GPSLongitude"][2]) / 3600;
+
+      document.getElementById('lat').value=lat;
+      document.getElementById('lon').value=-long;
+
+
+
+    });
+}
+        function readURL(input) {
+          if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+        $('#blah')
+            .attr('src', e.target.result)
+            
+       
+    };
+    
+    reader.readAsDataURL(input.files[0]);
+}
+}
+
+
     function showLoading(){
       upload_div = document.getElementById("uploading")
       upload_div.style.display = "block"
@@ -165,15 +205,17 @@ height: 300px;
     <h1>Uploading</h1>
   </div>
     <div>
-    <h1 class="input">Upload Image</h1>
+    <h1 id="test" class="input">Upload Image</h1>
   </div>
   <div>
+    <input class="input" id="lat" type='text' name='lat' style="display: none;" />
+    <input class="input" id="lon" type='text' name='lon' style="display: none;" />
     <input class="input" id="input" type='file' name='file' onchange="readURL(this);" />
    <br>
-    <input class="input" id="button" type="submit" onclick="showLoading()"/></div>
+    <input class="input" id="button" type="submit" onclick="getLocation();showLoading()"/></div>
   </div>
   <div id="img">
-    <img  id="blah" src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />
+    <img  id="blah"  src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />
   </div>
   </form>
 

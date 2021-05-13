@@ -8,6 +8,8 @@ import load_model
 import cv2
 from flask_pymongo import PyMongo
 import json
+from GPSPhoto import gpsphoto
+from binascii import a2b_base64
 
 
 app = Flask(__name__, static_folder='static')
@@ -35,8 +37,10 @@ def upload_file():
 
         # get image
         f = request.files['file']
+        geo_location = request.form
 
-        # TODO EXTRACT GEO LOCATION
+        if not geo_location['lat'] and not geo_location['lon']:
+            return render_template('redirect.html', resultMessege="Sorry! the image isn't geo tagged")
 
         # TODO CHECK IF IMAGE IS GEO TAGGED IF NOT DO NOT DETECT
 
@@ -47,7 +51,7 @@ def upload_file():
 
         # TODO SEND THE LOCATION TO DETECT FUNCTION
         # get detection
-        resultMessege = detect.detect_garbage(img)
+        resultMessege = detect.detect_garbage(img, geo_location)
 
         # TODO RETURN TO INDEX.HTML
 
@@ -58,4 +62,4 @@ def upload_file():
 if __name__ == '__main__':
     # model, classes = load_model.load_model()
 
-    app.run(debug=False, port=8909)
+    app.run(debug=True, port=8909)

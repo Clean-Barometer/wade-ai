@@ -1,7 +1,7 @@
 
 
 # TODO ADD LOCATION PARAMETER
-def detect_garbage(image):
+def detect_garbage(image, geo_location):
 
     from trash import trash
     from mrcnn.model import log
@@ -131,7 +131,7 @@ def detect_garbage(image):
     collection = db.predictions
 
     record = {
-        "loc": {"type": "Point", "coordinates": [-73.97, 40.77]},
+        "loc": {"type": "Point", "coordinates": [geo_location['lat'], geo_location['lon']]},
         "predictedImage": predicted,
         "originalImage": original,
         "time": datetime.now(),

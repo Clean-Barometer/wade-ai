@@ -87,7 +87,7 @@ def load_model():
     with tf.device(DEVICE):
         model = modellib.MaskRCNN(
             mode="inference", model_dir=MODEL_DIR, config=config)
-    model._make_predict_function()
+
     # Load the weights you trained
     weights_path = os.path.join(ROOT_DIR, TRASH_WEIGHTS_PATH)
     model.load_weights(weights_path, by_name=True)

@@ -2,9 +2,7 @@
 <html>
 
 <head>
-    <title>My Awesome Website Title</title>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='map.css') }}" />
-    <link type="image/x-icon" rel="icon" href="favicon.ico">
     <title>Garbage Detection</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -12,14 +10,13 @@
 </head>
 
 <body class="parent">
-    <h1 style="margin-bottom: 0px;">Garbage Detection</h1>
-    <h4>By CAP18</h4>
-
+   
+    <div id="header"></div>
     <div id="map" class="leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0">
     </div>
 
     <div id="modal01" class="modal" onclick="this.style.display='none'">
-        <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="close">&times;</span>
         <div class="modal-content">
             <img id="img01" style="max-width:100%">
         </div>
@@ -50,7 +47,6 @@
                 document.getElementById("modal01").style.display = "block";
             }, false);
             element.src = uriBeginning + myDoc.predictedImage;
-            myDoc.loc.coordinates.reverse();
 
             var marker = L.marker(myDoc.loc.coordinates)
                 .bindPopup(element)

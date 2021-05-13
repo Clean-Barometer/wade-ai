@@ -38,7 +38,7 @@ def upload_file():
         # get image
         f = request.files['file']
         geo_location = request.form
-
+        print(geo_location)
         if not geo_location['lat'] and not geo_location['lon']:
             return render_template('redirect.html', resultMessege="Sorry! the image isn't geo tagged")
 

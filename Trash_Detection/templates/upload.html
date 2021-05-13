@@ -132,13 +132,15 @@ height: 300px;
       display: none;
   
 }
-
+#upload{
+  margin-top: 300px;
+  height: 400px !important;
+}
 #uploading{
-  background-color: rgb(75, 75, 75);
+  background-color: rgba(255, 255, 255, 0.851);
   position: absolute;
-  height: 400px;
+  height: 100%;
   width: 100%;
-  opacity: 70%;
   margin: 0;
   display: none;
 }
@@ -196,7 +198,7 @@ height: 300px;
   <form action="/uploader" method="POST" enctype="multipart/form-data">
     
   <div id="uploading">
-    <img  id="upload" src="{{ url_for('static', filename='upload.gif') }}" alt="uploading..." />
+    <img  id="upload" src="{{ url_for('static', filename='upload1.gif') }}" alt="uploading..." />
   </div>
 
   <div id="input_content">

@@ -27,7 +27,7 @@ def upload_f():
 
 @app.route('/map')
 def showMap():
-    data = collection.find({}, {'_id': False, 'time': False})
+    data = collection.find({}, {'_id': False})
     return render_template('map.html', data=list(data))
 
 

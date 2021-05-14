@@ -8,7 +8,5 @@ WORKDIR /app
 
 RUN pip3 install -r requirements.txt
 
-CMD ["gunicorn", "-w", "3", "-b", ":5000",\ 
-     "-t", "360",\
-     "--log-level" ,"DEBUG","--reload", "wsgi:app"]
+CMD ["gunicorn","wsgi:app"]
 

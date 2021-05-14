@@ -20,7 +20,6 @@ import numpy as np
 from skimage.measure import find_contours
 import matplotlib
 matplotlib.use('TkAgg')
-
 import matplotlib.pyplot as plt
 
 # Root directory of the project
@@ -44,17 +43,17 @@ def display_images(images, titles=None, cols=4, cmap=None, norm=None,
     norm: Optional. A Normalize instance to map values to colors.
     interpolation: Optional. Image interpolation to use for display.
     """
-    titles = titles if titles is not None else [""] * len(images)
-    rows = len(images) // cols + 1
-    plt.figure(figsize=(14, 14 * rows // cols))
-    i = 1
-    for image, title in zip(images, titles):
-        plt.subplot(rows, cols, i)
-        plt.title(title, fontsize=9)
-        plt.axis('off')
-        #plt.imshow(image.astype(np.uint8), cmap=cmap,norm=norm, interpolation=interpolation)
-        i += 1
-    #plt.show()
+    # titles = titles if titles is not None else [""] * len(images)
+    # rows = len(images) // cols + 1
+    # plt.figure(figsize=(14, 14 * rows // cols))
+    # i = 1
+    # for image, title in zip(images, titles):
+    #     plt.subplot(rows, cols, i)
+    #     plt.title(title, fontsize=9)
+    #     plt.axis('off')
+    #     #plt.imshow(image.astype(np.uint8), cmap=cmap,norm=norm, interpolation=interpolation)
+    #     i += 1
+    # #plt.show()
 
 
 def random_colors(N, bright=True):
@@ -106,20 +105,20 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         assert boxes.shape[0] == masks.shape[-1] == class_ids.shape[0]
 
     # If no axis is passed, create one and automatically call show()
-    auto_show = False
-    if not ax:
-        _, ax = plt.subplots(1, figsize=figsize)
-        auto_show = True
+    # auto_show = False
+    # if not ax:
+    #     _, ax = plt.subplots(1, figsize=figsize)
+    #     auto_show = True
 
-    # Generate random colors
+    # # Generate random colors
     colors = colors or random_colors(N)
 
-    # Show area outside image boundaries.
-    height, width = image.shape[:2]
-    ax.set_ylim(height + 10, -10)
-    ax.set_xlim(-10, width + 10)
-    ax.axis('off')
-    ax.set_title(title)
+    # # Show area outside image boundaries.
+    # height, width = image.shape[:2]
+    # ax.set_ylim(height + 10, -10)
+    # ax.set_xlim(-10, width + 10)
+    # ax.axis('off')
+    # ax.set_title(title)
 
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
@@ -134,7 +133,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             p = patches.Rectangle((x1, y1), x2 - x1, y2 - y1, linewidth=2,
                                   alpha=0.7, linestyle="dashed",
                                   edgecolor=color, facecolor='none')
-            ax.add_patch(p)
+            # ax.add_patch(p)
 
         # Label
         if not captions:
@@ -144,8 +143,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             caption = "{} {:.3f}".format(label, score) if score else label
         else:
             caption = captions[i]
-        ax.text(x1, y1 + 8, caption,
-                color='w', size=11, backgroundcolor="none")
+        # ax.text(x1, y1 + 8, caption,
+        #         color='w', size=11, backgroundcolor="none")
 
         # Mask
         mask = masks[:, :, i]
@@ -162,7 +161,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             # Subtract the padding and flip (y, x) to (x, y)
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
-            ax.add_patch(p)
+            # ax.add_patch(p)
 
     return masked_image.astype(np.uint8)
 
@@ -257,7 +256,7 @@ def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10)
                                   [:4].astype(np.int32), image.shape)
             masked_image = apply_mask(masked_image, m, color)
 
-    #ax.imshow(masked_image)
+    # ax.imshow(masked_image)
 
     # Print stats
     print("Positive ROIs: ", class_ids[class_ids > 0].shape[0])
@@ -453,7 +452,7 @@ def draw_boxes(image, boxes=None, refined_boxes=None,
                 verts = np.fliplr(verts) - 1
                 p = Polygon(verts, facecolor="none", edgecolor=color)
                 ax.add_patch(p)
-    #ax.imshow(masked_image.astype(np.uint8))
+    # ax.imshow(masked_image.astype(np.uint8))
 
 
 def display_table(table):

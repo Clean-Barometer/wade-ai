@@ -2,7 +2,6 @@
 
 # TODO ADD LOCATION PARAMETER
 def detect_garbage(image, geo_location):
-
     from trash import trash
     from mrcnn.model import log
     import mrcnn.model as modellib
@@ -98,8 +97,6 @@ def detect_garbage(image, geo_location):
     # print(type(image))
     # Run object detection
     results = model.detect([image], verbose=1)
-
-    # Display results
 
     r = results[0]
 

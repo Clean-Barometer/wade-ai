@@ -10,5 +10,5 @@ tensorflow==1.3.0
 h5py==2.7.0
 ipython==7.16.1
 imgaug==0.4.0
-pymongo
-flask_pymongo
+pymongo==3.11.4
+Flask-PyMongo==2.3.0

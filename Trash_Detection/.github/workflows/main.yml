@@ -13,7 +13,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "clean-barometer" #Must be unique in Heroku
+          heroku_app_name: "garbage-detection" #Must be unique in Heroku
           heroku_email: "ahmadkobeid96@gmail.com"
           usedocker: true
           appdir: "Trash_Detection"

@@ -165,6 +165,8 @@ height: 300px;
       document.getElementById('lat').value=lat;
       document.getElementById('lon').value=long;
 
+      console.log(lat);
+      console.log(long);  
 
 
     });}
@@ -225,7 +227,7 @@ height: 300px;
     <input class="input" id="button" type="submit" onclick="getLocation();showLoading()"/></div>
   </div>
   <div id="img">
-    <img  id="blah"  src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />
+    <img  onclick="getLocation()" id="blah"  src="{{ url_for('static', filename='placeholder.jpeg') }}" alt="your image" />
   </div>
   </form>
 

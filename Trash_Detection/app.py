@@ -59,7 +59,7 @@ def upload_file():
         return render_template('redirect.html', resultMessege=resultMessege)
 
 
-# if __name__ == '__main__':
-#     # model, classes = load_model.load_model()
+if __name__ == '__main__':
+    # model, classes = load_model.load_model()
 
-#     app.run(debug=True, port=8909)
+    app.run(debug=True, port=5000)

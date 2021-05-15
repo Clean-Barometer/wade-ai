@@ -1,7 +1,7 @@
 # AI tool for trash detection 
 
-<h3>SpotGarbage it's an AI algorithm for detecting trash in geolocated images </h3>
-<h3>It needs to be stated that trash-detection is forked from the implementation of <a href="https://github.com/letsdoitworld/wade-ai">KristiinaKerge</a></h3>
+SpotGarbage it's an AI algorithm for detecting trash in geolocated images 
+It needs to be stated that trash-detection is forked from the implementation of <a href="https://github.com/letsdoitworld/wade-ai">KristiinaKerge</a>
 
 
  

@@ -6,15 +6,17 @@ It needs to be stated that trash-detection is forked from the implementation of 
 
 <h>
  
-## Approach
+ 
+<h4>Approach</h4>
 The solution was build using Mask R-CNN and trained on dataset consisting of almost 1400 crowd sourced images containing trash. Ideally we would end up with a computer vision algorithm that could detect trash from any picture or video that has a geotag attached to it. 
 
 <hr>
 
 
-## Project Demo
+<h4>Project Demo</h4>
 ![index](https://user-images.githubusercontent.com/47077167/118381346-afbc5300-b5f2-11eb-8dd5-030eec7da1de.jpeg)
 
+<hr>
 
 <h3>Run Demo</h3>
 

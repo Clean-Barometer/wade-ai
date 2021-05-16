@@ -16,6 +16,9 @@ The solution was build using Mask R-CNN and trained on dataset consisting of alm
 
 <h4>Project Demo</h4>
 
+This video illustrates how should user dealing with the website
+https://youtu.be/4rw3x-7MKpE 
+
 ![index](https://user-images.githubusercontent.com/47077167/118381346-afbc5300-b5f2-11eb-8dd5-030eec7da1de.jpeg)
 
 

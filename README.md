@@ -1,4 +1,5 @@
 # AI tool for trash detection 
+<h4>Introduction</h4>
 
 SpotGarbage it's an AI algorithm for detecting trash in geolocated images.
 <br>
@@ -16,7 +17,6 @@ The solution was build using Mask R-CNN and trained on dataset consisting of alm
 <h4>Project Demo</h4>
 ![index](https://user-images.githubusercontent.com/47077167/118381346-afbc5300-b5f2-11eb-8dd5-030eec7da1de.jpeg)
 
-<hr>
 
 <h3>Run Demo</h3>
 

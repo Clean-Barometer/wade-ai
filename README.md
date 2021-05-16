@@ -19,6 +19,9 @@ The solution was build using Mask R-CNN and trained on dataset consisting of alm
 ![index](https://user-images.githubusercontent.com/47077167/118381346-afbc5300-b5f2-11eb-8dd5-030eec7da1de.jpeg)
 
 
+
+<hr>
+
 <h3>Run Demo</h3>
 
 ```html
